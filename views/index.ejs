@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ادارة</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --background: #fefae7;
+        --dominant-color: #f9c80e;
+        --primary-color: #ea3546;
+        --secondary-color: #662e9b;
+        --success-color: #25c77c;
+        --danger-color: #c92333;
+        --warning-color: #ecb100;
+        --info-color: #0cbce0;
+        --background-text: #000000;
+        --dominant-text: #000000;
+        --primary-text: #ffffff;
+        --secondary-text: #ffffff;
+        --success-text: #000000;
+        --danger-text: #ffffff;
+        --warning-text: #000000;
+        --info-text: #000000;
+      }
+      
+    </style>
+  </head>
+  <body>
+   
+    <% for(var y=0 ;y<mas.length; y++){ %>
+        <h1 style="text-align: center;"><%= mas[y].name %></h1>
+      <div style="display: flex; flex-wrap: wrap">
+        <%for (var x =0; x<cas.length; x++) {%>
+              <% if (y==cas[x].mx){ %>
+                <div class="scene scene--card">
+                    <div class="card">
+                      <div class="card__face card__face--front"><%= cas[x].title %></div>
+                      <div class="card__face card__face--back"><%= cas[x].desc %></div>
+                    </div>
+                  </div>
+        <% }%>
+        <% }%>
+      </div>
+      <% }%>
+      
+
+   
+
+    <div id="whole_cards"></div>
+    <div><%= cas.lenght %></div>
+    <script>
+      var cards = document.querySelectorAll(".card");
+
+      [...cards].forEach((card) => {
+        card.addEventListener("click", function () {
+          card.classList.toggle("is-flipped");
+        });
+      });
+     
+    </script>
+  </body>
+</html>

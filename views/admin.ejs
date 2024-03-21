@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="generator" content="Mobirise AI v0.01, ai.mobirise.com" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <link
+      rel="shortcut icon"
+      href="assets/images/logo5.png"
+      type="image/x-icon"
+    />
+    <meta
+      name="description"
+      content="Discover the latest trends in fashion and elevate your style with our exclusive collection of clothing and accessories."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <title></title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="css/additional.css" type="text/css" />
+
+    <style>
+      :root {
+        --background: #fefae7;
+        --dominant-color: #f9c80e;
+        --primary-color: #ea3546;
+        --secondary-color: #662e9b;
+        --success-color: #25c77c;
+        --danger-color: #c92333;
+        --warning-color: #ecb100;
+        --info-color: #0cbce0;
+        --background-text: #000000;
+        --dominant-text: #000000;
+        --primary-text: #ffffff;
+        --secondary-text: #ffffff;
+        --success-text: #000000;
+        --danger-text: #ffffff;
+        --warning-text: #000000;
+        --info-text: #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="login">
+      <form action="/login" method="post">
+        <div class="input-field">
+          <input type="text" name="user" id="userMail" required />
+          <label>user name</label>
+        </div>
+        <div class="input-field">
+          <input type="password" name="pass" required />
+          <label>Password</label>
+        </div>
+        <button type="submit" id="logDone">Log In</button>
+      </form>
+    </section>
+    <div id="wholePage">
+    
+      <% for(var y=0 ;y<mas.length+1; y++){ %>
+        <% if (y==mas.length) {%>
+          <div class="addadd"><form action="/addTitle" method="post" >
+            <input
+              type="text"
+              name="Title"
+              
+              required
+            />
+            <input type="hidden" name="mx" value="<%= y %>" />
+            <button type="submit">add title</button>
+          </form>  
+          </div>
+        <% }else{ %>
+        <h1 style="text-align: center;"><%= mas[y].name %></h1>
+      <div style="display: flex; flex-wrap: wrap">
+        <%for (var x =0; x<cas.length+1; x++) {%>
+          <% if (x==cas.length) {%>
+           <div class="addadd"><form action="/addCard" method="post" >
+                  <input
+                    type="text"
+                    name="cardName"
+                    
+                    required
+                  />
+                  <textarea type="text" name="cardDesc" required>
+                    </textarea
+                  >
+                  <input type="hidden" name="mx" value="<%= y %>" />
+                  <button type="submit">add</button>
+                </form>  
+                </div>
+            <% }else{ %>
+              <% if (y==cas[x].mx){ %>
+                <div>
+                  <div class="scene scene--card">
+            <div class="card">
+              <div class="card__face card__face--front">
+                <%= cas[x].title %>
+              </div>
+              <div class="card__face card__face--back"><%= cas[x].desc %></div>
+            </div>
+          </div>
+          <div class="allbtn">
+            <div style="display: flex; justify-content: space-around">
+              <form action="/delete" method="post">
+                <input type="hidden" name="id" value="<%= cas[x].id%>" />
+                <button type="submit">delete</button>
+              </form>
+              <button class="showFormEdit">Edit</button>
+            </div>
+            
+            <form action="/update" method="post" class="updateForm">
+              <input
+              type="text"
+              name="editTitle"
+                value="<%= cas[x].title%>"
+                required
+              />
+              <textarea type="text" name="editDesc" required>
+                <%= cas[x].desc%></textarea
+                >
+                <input type="hidden" name="id" value="<%= cas[x].id%>" />
+                <input type="hidden" name="mx" value="<%= y%>" />
+                <button type="submit">update</button>
+            </form>
+          </div>
+          </section>
+        </div>
+        <% } %>
+        <% }%>
+        <% }%>
+      </div>
+      <% }%>
+      <% }%>
+    </div>
+    
+    <script>
+      var id = "<%= id%>";
+      if (id == 0 || id == null) {
+        document.getElementById("login").style.display = "block";
+        document.getElementById("wholePage").style.display = "none";
+      } else {
+        localStorage.setItem("userd", "<%= id %>");
+      }
+      id = localStorage.getItem("userd");
+      if (id != 0 && id != null) {
+        console.log(id)
+        console.log("asaasaas")
+        document.getElementById("login").style.display = "none";
+        document.getElementById("wholePage").style.display ="block";
+      }
+
+      var cards = document.querySelectorAll(".card");
+
+      [...cards].forEach((card) => {
+        card.addEventListener("click", function () {
+          card.classList.toggle("is-flipped");
+        });
+      });
+      var show = document.querySelectorAll(".showFormEdit");
+      var all = document.querySelectorAll(".updateForm");
+      show.forEach(function (cardbtn, index) {
+        cardbtn.addEventListener("click", () => {
+          all[index].classList.toggle("card-me");
+        });
+      });
+      // document.getElementById("shit").addEventListener("click",()=>{
+      //   var x= alert("are y")
+      //   console.log(x)
+      // })
+      // console.log(show.length);
+      // console.log(document.getElementById(f2));
+      // for (var x = 0; x < show.length; x++) {
+      //   console.log("asas");
+      //   show[x].addEventListener("click", () => {
+      //     console.log(all[x]);
+      //     all[x].toggle("update");
+      //   });
+      // }
+    </script>
+  </body>
+</html>
